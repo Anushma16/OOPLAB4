@@ -1,0 +1,74 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Base Class
+class Student {
+private:
+    string name;
+    int roll_no;
+
+public:
+    void read_student() {
+        cout << "Enter student name: ";
+        getline(cin, name);
+        cout << "Enter roll number: ";
+        cin >> roll_no;
+        cin.ignore(); // clear buffer
+    }
+
+    void display_student() {
+        cout << "Name: " << name << endl;
+        cout << "Roll Number: " << roll_no << endl;
+    }
+};
+
+// Derived Class from Student
+class Exam : public Student {
+protected:
+    int marks[5];
+
+public:
+    void read_marks() {
+        cout << "Enter marks for 5 subjects:\n";
+        for (int i = 0; i < 5; i++) {
+            cout << "Subject " << i + 1 << ": ";
+            cin >> marks[i];
+        }
+    }
+
+    void display_marks() {
+        cout << "Marks in 5 subjects:\n";
+        for (int i = 0; i < 5; i++) {
+            cout << "Subject " << i + 1 << ": " << marks[i] << endl;
+        }
+    }
+};
+
+// Derived Class from Exam
+class Result : public Exam {
+public:
+    void display_result() {
+        int total = 0;
+        for (int i = 0; i < 5; i++) {
+            total += marks[i];
+        }
+        float percentage = total / 5.0;
+
+        // Show Result
+        display_student();
+        display_marks();
+        cout << "Total Marks: " << total << "/500" << endl;
+        cout << "Percentage: " << percentage << "%" << endl;
+    }
+};
+
+// Main Function
+int main() {
+    Result student1;
+    student1.read_student();
+    student1.read_marks();
+    cout << "\n----- Student Result -----\n";
+    student1.display_result();
+return 0;
+}
