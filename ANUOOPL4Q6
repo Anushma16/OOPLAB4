@@ -1,0 +1,78 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Base class: Patient
+class Patient {
+protected:
+    int patientID;
+    string name;
+
+public:
+    void inputPatient() {
+        cout << "Enter Patient ID: ";
+        cin >> patientID;
+        cin.ignore(); // To clear newline character
+        cout << "Enter Patient Name: ";
+        getline(cin, name);
+    }
+
+    void displayPatient() {
+        cout << "Patient ID: " << patientID << endl;
+        cout << "Patient Name: " << name << endl;
+    }
+};
+
+// Derived class: Ward
+class Ward : public Patient {
+protected:
+    string wardType;
+    int bedNo;
+
+public:
+    void inputWard() {
+        inputPatient(); // Call base class input
+        cout << "Enter Ward Type: ";
+        getline(cin, wardType);
+        cout << "Enter Bed Number: ";
+        cin >> bedNo;
+        cin.ignore();
+    }
+
+    void displayWard() {
+        displayPatient(); // Call base class display
+        cout << "Ward Type: " << wardType << endl;
+        cout << "Bed Number: " << bedNo << endl;
+    }
+};
+
+// Derived class: Payment
+class Payment : public Ward {
+private:
+    int billNo;
+    float totalAmount;
+
+public:
+    void inputPayment() {
+        inputWard(); // Call Ward class input
+        cout << "Enter Bill Number: ";
+        cin >> billNo;
+        cout << "Enter Total Amount: ";
+        cin >> totalAmount;
+    }
+
+    void displayPayment() {
+        cout << "\n--- Patient Details ---\n";
+        displayWard(); // Call Ward class display
+        cout << "Bill Number: " << billNo << endl;
+        cout << "Total Amount: $" << totalAmount << endl;
+    }
+};
+
+int main() {
+    Payment p;
+    p.inputPayment();
+    p.displayPayment();
+
+    return 0;
+}
