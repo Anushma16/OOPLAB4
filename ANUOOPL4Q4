@@ -1,0 +1,84 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Base class
+class Account {
+private:
+    string customer_name;
+    int account_number;
+    string account_type;
+    float balance;
+
+public:
+    // Constructor to initialize base members
+    Account(string name, int number, string type) {
+        customer_name = name;
+        account_number = number;
+        account_type = type;
+        balance = 0.0f;
+    }
+
+    // Virtual function to deposit amount
+    virtual void deposit(float amount) {
+        if (amount > 0) {
+            balance += amount;
+            cout << "Deposited: Rs. " << amount << endl;
+        } else {
+            cout << "Invalid deposit amount!" << endl;
+        }
+    }
+
+    // Virtual function to withdraw amount
+    virtual void withdraw(float amount) {
+        if (amount > 0 && amount <= balance) {
+            balance -= amount;
+            cout << "Withdrawn: Rs. " << amount << endl;
+        } else {
+            cout << "Insufficient balance or invalid amount!" << endl;
+        }
+    }
+
+    // Display account details and balance
+    void display() {
+        cout << "\nCustomer Name: " << customer_name << endl;
+        cout << "Account Number: " << account_number << endl;
+        cout << "Account Type: " << account_type << endl;
+        cout << "Current Balance: Rs. " << balance << endl;
+    }
+};
+
+// Derived class for Saving Account
+class Saving_Account : public Account {
+public:
+    Saving_Account(string name, int number)
+        : Account(name, number, "Saving") {}
+
+    // You can override withdraw/deposit here if needed
+};
+
+// Derived class for Current Account
+class Current_Account : public Account {
+public:
+    Current_Account(string name, int number)
+        : Account(name, number, "Current") {}
+
+    // You can override withdraw/deposit here if needed
+};
+
+int main() {
+    // Example usage
+    Saving_Account sa("Ram Bahadur", 101);
+    sa.deposit(10000);
+    sa.withdraw(3000);
+    sa.display();
+
+    cout << "------------------------" << endl;
+
+    Current_Account ca("Sita Kumari", 202);
+    ca.deposit(20000);
+    ca.withdraw(5000);
+    ca.display();
+
+    return 0;
+}
