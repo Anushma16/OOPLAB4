@@ -1,0 +1,89 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Author class
+class Author {
+public:
+    string name;
+    string degree;
+
+    void input() {
+        cout << "Enter Author's Name: ";
+        getline(cin, name);
+        cout << "Enter Author's Degree: ";
+        getline(cin, degree);
+    }
+
+    void display() {
+        cout << "Author Name: " << name << endl;
+        cout << "Author Degree: " << degree << endl;
+    }
+};
+
+// Publication class
+class Publication {
+public:
+    string name;
+    string location;
+
+    void input() {
+        cout << "Enter Publication Name: ";
+        getline(cin, name);
+        cout << "Enter Publication Location: ";
+        getline(cin, location);
+    }
+
+    void display() {
+        cout << "Publication Name: " << name << endl;
+        cout << "Publication Location: " << location << endl;
+    }
+};
+
+// Book class containing Author and Publication objects
+class Book {
+public:
+    string bookTitle;
+    int numPages;
+    float price;
+    Author author;
+    Publication publication;
+
+    void input() {
+        cout << "Enter Book Title: ";
+        getline(cin, bookTitle);
+        cout << "Enter Number of Pages: ";
+        cin >> numPages;
+        cout << "Enter Price: ";
+        cin >> price;
+        cin.ignore(); // clear newline from input buffer
+
+        cout << "--- Enter Author Details ---" << endl;
+        author.input();
+
+        cout << "--- Enter Publication Details ---" << endl;
+        publication.input();
+    }
+
+    void display() {
+        cout << "\n--- Book Information ---" << endl;
+        cout << "Title: " << bookTitle << endl;
+        cout << "Pages: " << numPages << endl;
+        cout << "Price: $" << price << endl;
+
+        cout << "\n--- Author Information ---" << endl;
+        author.display();
+
+        cout << "\n--- Publication Information ---" << endl;
+        publication.display();
+    }
+};
+
+int main() {
+    Book myBook;
+
+    myBook.input();
+    myBook.display();
+
+    return 0;
+}
