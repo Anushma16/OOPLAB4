@@ -1,0 +1,50 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+//base class
+class Polygon{
+	protected:
+		double width;
+		double height;
+				public:
+			void setDimensions(double w,double h){
+				width= w;
+				height= h;
+			}
+};
+//derived class rectangle
+class Rectangle: public Polygon{
+	public:
+		double calculate_area(){
+			return width * height;
+		}
+		double calculate_perimeter(){
+			return  2 *  (width+height);
+		}
+		};
+//derived class triangle
+class Triangle:public Polygon{
+	public:
+		double calculate_area(){
+		return 0.5 * width * height;
+		}
+		//Assuming it's a right angled triangle with width and height as perpendicular sides
+		double calculate_perimeter(){
+			double hypotenuse = sqrt(width *width + height * height);
+			return width + height + hypotenuse;
+		}
+};
+int main(){
+	Rectangle rect;
+	rect.setDimensions(5.0,3.0);
+	cout << "Rectangle Area: "<<
+	rect.calculate_area()<<endl;
+	cout<<"Rectangle Perimeter: "<<
+    rect.calculate_perimeter()<<endl;
+    Triangle tri;
+    tri.setDimensions(5.0,3.0);
+    cout <<  "Triangle Area: "<<
+    tri.calculate_area()<<endl;
+    cout<<"Triangle Perimeter(Right angled): " << tri.calculate_perimeter() <<endl;
+    return 0;
+}
