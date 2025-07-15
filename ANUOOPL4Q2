@@ -1,0 +1,97 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Lecturer {
+protected:
+    string name;
+    int id;
+
+public:
+    string course_id;
+    string course_Name;
+
+    Lecturer(const string& n, int i, const string& c_id, const string& c_name)
+        : name(n), id(i), course_id(c_id), course_Name(c_name) {}
+
+    void getData() {
+        cout << "Enter Name: ";
+        getline(cin, name);
+        cout << "Enter ID: ";
+        cin >> id;
+        cout << "Enter Course ID: ";
+        cin >> course_id;
+        cout << "Enter Course Name: ";
+        cin.ignore();
+        getline(cin, course_Name);
+    }
+
+    void displayLecturerDetails() {
+        cout << "Lecturer Name: " << name << endl;
+        cout << "Lecturer ID: " << id << endl;
+        cout << "Course ID: " << course_id << endl;
+        cout << "Course Name: " << course_Name << endl;
+    }
+};
+
+class PartTimeFaculty : public Lecturer {
+private:
+    double pay_per_hour;
+
+public:
+    PartTimeFaculty(const string& n, int i, const string& c_id, const string& c_name, double pph)
+        : Lecturer(n, i, c_id, c_name), pay_per_hour(pph) {}
+
+    void getData() {
+        Lecturer::getData();
+        cout << "Enter Pay Per Hour: ";
+        cin >> pay_per_hour;
+    }
+
+    void displayPartTimeFacultyDetails() {
+        displayLecturerDetails();
+        cout << "Pay Per Hour: " << pay_per_hour << endl;
+    }
+};
+
+class FullTimeFaculty : public Lecturer {
+private:
+    double salary;
+
+public:
+    FullTimeFaculty(const string& n, int i, const string& c_id, const string& c_name, double sal)
+        : Lecturer(n, i, c_id, c_name), salary(sal) {}
+
+    void getData() {
+        Lecturer::getData();
+        cout << "Enter Salary: ";
+        cin >> salary;
+    }
+
+    void displayFullTimeFacultyDetails() {
+        displayLecturerDetails();
+        cout << "Salary: " << salary << endl;
+    }
+};
+
+int main() {
+    PartTimeFaculty pt_lecturer("", 0, "", "", 0.0);
+    FullTimeFaculty ft_lecturer("", 0, "", "", 0.0);
+
+    cout << "--- Enter Part-Time Lecturer Details ---" << endl;
+    cin.ignore();
+    pt_lecturer.getData();
+
+    cout << "\n--- Enter Full-Time Lecturer Details ---" << endl;
+    cin.ignore();
+    ft_lecturer.getData();
+
+    cout << "\n--- Part-Time Lecturer Details ---" << endl;
+    pt_lecturer.displayPartTimeFacultyDetails();
+
+    cout << "\n--- Full-Time Lecturer Details ---" << endl;
+    ft_lecturer.displayFullTimeFacultyDetails();
+
+    return 0;
+}
